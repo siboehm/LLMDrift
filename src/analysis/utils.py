@@ -34,7 +34,14 @@ def calculate_contain_score(row):
 
     return score
 
+i = 0
+
 def eval_code(datapoint):
+    global i
+    print("evaluating code:",i)
+    i+=1
+    import subprocess
+    import time
     #time.sleep(1)
     # get filename
     title = datapoint['id'].split("-", 1)[1] 

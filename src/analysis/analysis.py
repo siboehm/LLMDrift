@@ -24,13 +24,24 @@ class Analysis(object):
         return average_lengths, scores_std
     
     def get_score(self,data,name):
+        assert(name in _SCORE_MAP)
         if name in _SCORE_MAP:
+            print("have!")
             method = _SCORE_MAP[name]
             if(not(name in data)):
+                print("not have!")
                 data[name] = data.apply(method,axis=1)
             scores = data.groupby('model')[name].mean()
             scores_std = data.groupby('model')[name].std(ddof=0) / numpy.sqrt(data.groupby('model').size())
             return scores, scores_std
+
+    def run_code(self,data,name):
+        assert(name in _SCORE_MAP)
+        if name in _SCORE_MAP:
+            print("have!")
+            method = _SCORE_MAP[name]
+            data[name] = data.apply(method,axis=1)
+            return data
     
     def get_overlap(self,data,models,name):  
         filtered_df1 = data[data['model']==models[0]]
